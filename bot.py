@@ -24,8 +24,7 @@ def suggest_input(update,context):
 
 
 if __name__ == "__main__":
-    #token = os.environ.get("TOKEN")
-    token = "2061681773:AAHMkxsAb8ASIRgjFGTLbaWbwDcpZA8oOXs"
+    token = os.environ.get("TOKEN")
     updater = Updater(token, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start',start))
