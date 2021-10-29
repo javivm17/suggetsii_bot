@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler, ConversationHandler, MessageHandler, Filters
 import os
-import sqlite3
 from datetime import datetime
+from database import Suggest_database 
 
 INPUT_TEXT = 0
 
@@ -15,16 +15,20 @@ def suggest_handler(update,context):
 
 def suggest_input(update,context):
     suggest = update.message.text
-    date= datetime.today()
+    date= str(datetime.today()).split(" ")[0]
+    
     #Almacenar sugerencia en base de datos
-    update.message.reply_text("Muchas gracias, tu sugerencia ha sido registrada, enviame ahora un título")
-    print("Sugerencia: "+suggest+" || "+str(date))
+    db = Suggest_database()
+    db.insert_suggest(date,suggest)
+
+    update.message.reply_text("Muchas gracias, tu sugerencia ha sido registrada")
 
     return ConversationHandler.END
 
 
 if __name__ == "__main__":
-    token = os.environ.get("TOKEN")
+    #token = os.environ.get("TOKEN")
+    token = "xxx"
     updater = Updater(token, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start',start))
