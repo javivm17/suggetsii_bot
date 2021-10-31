@@ -3,10 +3,10 @@ import pymysql
 class Suggest_database:        
     def __init__(self):
         self.db = pymysql.connect(
-                host="xxx",
-                user="xxx",
-                password="xxx",
-                db="xxx"
+                host="sql11.freesqldatabase.com",
+                user="sql11447724",
+                password="JlaIeR9bT7",
+                db="sql11447724"
             )
         self.cursor = self.db.cursor()
 
