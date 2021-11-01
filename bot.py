@@ -13,13 +13,13 @@ INPUT_DELETE=0
 
 #Start message
 def start(update,context):
-    update.message.reply_text("¡Hola soy SuggETSII! Aún estoy en fase de desarrollo. Os iré informando cuando tenga actualizaciones")
+    update.message.reply_text("¡Hola soy SuggETSII! Aún estoy en fase de desarrollo."+
+    "\nVersión 1.0: Nuevas funciones disponibles:\nRegistrar sugerencia anónima -> /suggest\nIniciar sesión como admin -> /admin")
     
 #Main function
 if __name__ == "__main__":
-    #token = os.environ.get("TOKEN")
+    token = os.environ.get("TOKEN")
     persistence = PicklePersistence(filename='conversationbot')
-    token = "2061681773:AAHMkxsAb8ASIRgjFGTLbaWbwDcpZA8oOXs"
     updater = Updater(token, use_context=True, persistence=persistence)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start',start))

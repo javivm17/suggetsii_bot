@@ -1,12 +1,13 @@
 import pymysql
+import os
 
 class Suggest_database:        
     def __init__(self):
         self.db = pymysql.connect(
-                host="sql11.freesqldatabase.com",
-                user="sql11447724",
-                password="JlaIeR9bT7",
-                db="sql11447724"
+                host=os.environ.get("HOST"),
+                user=os.environ.get("USER"),
+                password=os.environ.get("PASSWORD"),
+                db= os.environ.get("DB")
             )
         self.cursor = self.db.cursor()
 
