@@ -23,7 +23,7 @@ class Suggest_database:
         self.db.close()
 
     def get_suggests(self):
-        sql = "SELECT * FROM sugerencia"
+        sql = "SELECT * FROM sugerencia order by id desc"
         try:
             # Execute the SQL command
             self.cursor.execute(sql)
