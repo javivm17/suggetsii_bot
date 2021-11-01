@@ -21,3 +21,26 @@ class Suggest_database:
             # Rollback in case there is any error
             self.db.rollback()
         self.db.close()
+
+    def get_suggests(self):
+        sql = "SELECT * FROM sugerencia"
+        try:
+            # Execute the SQL command
+            self.cursor.execute(sql)
+            result = self.cursor.fetchall()
+            return result
+        except:
+            # Rollback in case there is any error
+            self.db.rollback()
+        self.db.close()
+    
+    def delete_suggest(self,id):
+        sql = "DELETE FROM sugerencia where id = %s" % id
+        try:
+            # Execute the SQL command
+            self.cursor.execute(sql)
+            self.db.commit()
+        except:
+            # Rollback in case there is any error
+            self.db.rollback()
+        self.db.close()  
