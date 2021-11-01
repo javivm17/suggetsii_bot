@@ -18,7 +18,7 @@ class Admin:
         try:
             user = suggest.split(" ")[0]
             password = suggest.split(" ")[1]
-            if(user=="admin" and password=="admin"):
+            if(user==str(os.environ.get("ADMIN_USER")) and password==str(os.environ.get("ADMIN_PASSWORD"))):
                 context.user_data["logged"] = True
                 update.message.reply_text("Has iniciado sesión como administrador!")
                 update.message.reply_text("¿Que deseas hacer? \n--------------------------------------------"+
