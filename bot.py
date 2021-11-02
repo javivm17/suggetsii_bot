@@ -1,4 +1,5 @@
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler, ConversationHandler, CallbackQueryHandler
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import os
 
 def start(update,context):
@@ -24,10 +25,17 @@ def dep(update, context):
     pass
 
 def us(update, context):
-    update.message.reply_text("Sitios para comer: /comida\nBibliotecas cómodas para estudiar: /estudiar")
+    button1 = InlineKeyboardButton("Sitios para comer", callback_data='comida')
+    button2 = InlineKeyboardButton("Sitios cómodos para estudiar", callback_data='estudiar')
+    update.message.reply_text(text='Selecciona una opción', 
+                              reply_markup=InlineKeyboardMarkup([
+                                  [button1, button2]
+                              ]))
 #Consejos US
-def comida(update, context):
-    update.message_reply_text("En el campus hay diversos sitios para poder comer. Nosotros te recomendamos los siguientes:\n"+
+def food_callback_handler(update, context):
+    query = update.callback_query
+    query.answer()
+    query.message.reply_text("En el campus hay diversos sitios para poder comer. Nosotros te recomendamos los siguientes:\n"+
     "Comedor de nuestra Escuela: Primer y segundo plato + Pan y Postre = 4'50€\n"+
     "Comedor de la Escuela de Idiomas: Primer y segundo plato + Pan y Postre = 4'10€\n" + 
     "Comedor de la Facultad de Matemáticas: Primer y segundo plato + Pan y Postre = 4'10€\n" + 
@@ -35,8 +43,10 @@ def comida(update, context):
     "\t-Ñam-ñam: Bocadillos variados a buen precio.\n"
     "\t-Bocatería del pasillo: bocatas a euroxd")
 
-def estudiar(update, context):
-    update.message_reply_text("Te recomendamos las siguientes bibliotecas para estdiar:\n"+
+def study_callback_handler(update, context):
+    query = update.callback_query
+    query.answer()
+    query.message.reply_text("Te recomendamos las siguientes bibliotecas para estdiar:\n"+
     "- Biblioteca de nuestra escuela.\n"+
     "- Biblioteca de Mates\n"+
     "- CRAI Antonio de Ulloa jeje")
@@ -58,8 +68,14 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler('dep',dep))
 
     dp.add_handler(CommandHandler('us',us))
-    dp.add_handler(CommandHandler('comida',comida))
-    dp.add_handler(CommandHandler('estudiar',estudiar))
+    dp.add_handler(ConversationHandler(
+        entry_points=[
+            CallbackQueryHandler(pattern='comida', callback=food_callback_handler),
+            CallbackQueryHandler(pattern='estudiar', callback=study_callback_handler)
+        ], 
+        states= {},
+        fallbacks=[]
+    ))
 
     dp.add_handler(CommandHandler('help',help))
     updater.start_polling()
