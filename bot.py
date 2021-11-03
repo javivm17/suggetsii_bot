@@ -18,7 +18,7 @@ def start(update,context):
 #Main function
 if __name__ == "__main__":
     #token = os.environ.get("TOKEN")
-    token = "2061681773:AAHMkxsAb8ASIRgjFGTLbaWbwDcpZA8oOXs"
+    token="2061681773:AAHMkxsAb8ASIRgjFGTLbaWbwDcpZA8oOXs"
     persistence = PicklePersistence(filename='conversationbot')
     updater = Updater(token, use_context=True, persistence=persistence)
     dp = updater.dispatcher
