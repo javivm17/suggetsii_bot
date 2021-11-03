@@ -2,12 +2,13 @@ from telegram.ext import Updater, CommandHandler, ConversationHandler, MessageHa
 import os
 from datetime import datetime
 from database import Suggest_database 
+import hashlib
 
 INPUT_PASS = 0
 INPUT_EXIT = 0
 INPUT_DELETE = 0
 
-class Admin:
+class Admin:   
     def admin_handler(update,context):
         update.message.reply_text("Inicia sesión escribiendo tu usuario y contraseña separado por espacios")
         return INPUT_PASS
@@ -18,11 +19,14 @@ class Admin:
         try:
             user = suggest.split(" ")[0]
             password = suggest.split(" ")[1]
-            if(user==str(os.environ.get("ADMIN_USER")) and password==str(os.environ.get("ADMIN_PASSWORD"))):
+            password_md5 = hashlib.md5(password.encode('utf-8')).hexdigest()   
+            db = Suggest_database()
+            logged = db.is_user_correct(user,password_md5)
+            if(logged):
                 context.user_data["logged"] = True
                 update.message.reply_text("Has iniciado sesión como administrador!")
                 update.message.reply_text("¿Que deseas hacer? \n--------------------------------------------"+
-                "\nListar sugerencias -> /list\nEliminar sugerencia -> /delete\nCerrar sesion -> /logout")
+                "\n/list: Listar sugerencias\n/delete: Eliminar sugerencia\n/logout: Cerrar sesion")
                 return ConversationHandler.END
             else:
                 update.message.reply_text("El usuario o la contraseña son incorrectos, vuelve a intentarlo de nuevo /admin")
@@ -31,6 +35,8 @@ class Admin:
             update.message.reply_text("El usuario o la contraseña son incorrectos, vuelve a intentarlo de nuevo /admin")
             return ConversationHandler.END
     #Suggest list
+
+
     def listar(update, context):
         try:
             if (context.user_data["logged"]==True):
@@ -90,5 +96,3 @@ class Admin:
             return ConversationHandler.END
         except:
             return ConversationHandler.END
-
-        

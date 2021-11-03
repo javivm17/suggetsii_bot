@@ -1,5 +1,6 @@
 import pymysql
 import os
+import logging
 
 class Suggest_database:        
     def __init__(self):
@@ -8,7 +9,7 @@ class Suggest_database:
                 user=os.environ.get("USER"),
                 password=os.environ.get("PASSWORD"),
                 db= os.environ.get("DB")
-            )
+        )
         self.cursor = self.db.cursor()
 
     def insert_suggest(self,date,suggest):
@@ -44,4 +45,19 @@ class Suggest_database:
         except:
             # Rollback in case there is any error
             self.db.rollback()
-        self.db.close()  
+        self.db.close() 
+
+    def is_user_correct(self,user,password):
+        sql = "SELECT * FROM usuario"
+        try:
+            # Execute the SQL command
+            self.cursor.execute(sql)
+            result = self.cursor.fetchone()
+            if(result[1]==user and result[2]==password):
+                return True
+            else:
+                return False
+        except:
+            # Rollback in case there is any error
+            self.db.rollback()
+        self.db.close()   
