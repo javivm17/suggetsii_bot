@@ -17,7 +17,8 @@ def start(update,context):
 
 #Main function
 if __name__ == "__main__":
-    token = os.environ.get("TOKEN")
+    #token = os.environ.get("TOKEN")
+    token = "2061681773:AAHMkxsAb8ASIRgjFGTLbaWbwDcpZA8oOXs"
     persistence = PicklePersistence(filename='conversationbot')
     updater = Updater(token, use_context=True, persistence=persistence)
     dp = updater.dispatcher
@@ -81,7 +82,8 @@ if __name__ == "__main__":
             CallbackQueryHandler(pattern='estudiar', callback=tipp.study_callback_handler),
             CallbackQueryHandler(pattern='aulas', callback=tipp.classes_callback_handler),
             CallbackQueryHandler(pattern='dep', callback=tipp.deps_callback_handler),
-            CallbackQueryHandler(pattern='pdfprot', callback=tipp.pdfprot_callback_handler)
+            CallbackQueryHandler(pattern='pdfprot', callback=tipp.pdfprot_callback_handler),
+            CallbackQueryHandler(pattern='denuncia', callback=tipp.denuncia_callback_handler)
         ], 
         states= {},
         fallbacks=[]

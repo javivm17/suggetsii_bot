@@ -10,10 +10,19 @@ class Tip:
     def protocolo(update, context):
         button1 = InlineKeyboardButton("Enlace al protocolo de acoso de la US", url="https://igualdad.us.es/?page_id=844")
         button2 = InlineKeyboardButton("Descargar pdf del protocolo de la US", callback_data='pdfprot')
+        button3 = InlineKeyboardButton("Formulario de denuncia", callback_data='denuncia')
         update.message.reply_text(text='Aquí dispones de información sobre cómo actuar ante una situación de acoso:', 
                                 reply_markup=InlineKeyboardMarkup([
-                                    [button1, button2]
+                                    [button1, button2, button3]
                                 ]))
+    def denuncia_callback_handler(update, context):
+        query = update.callback_query
+        query.answer()
+        chat = query.message.chat
+        chat.send_action(action=ChatAction.UPLOAD_DOCUMENT, timeout=None)
+        file = './US-Protocolo-Acoso_solicitud.docx'
+        chat.send_document(document=open(file, 'rb'))
+        
     def pdfprot_callback_handler(update, context):
         query = update.callback_query
         query.answer()
