@@ -26,7 +26,7 @@ class Admin:
                 context.user_data["logged"] = True
                 update.message.reply_text("Has iniciado sesión como administrador!")
                 update.message.reply_text("¿Que deseas hacer? \n--------------------------------------------"+
-                "\nListar sugerencias -> /list\nEliminar sugerencia -> /delete\nCerrar sesion -> /logout")
+                "\n/list: Listar sugerencias\n/delete: Eliminar sugerencia\n/logout: Cerrar sesion")
                 return ConversationHandler.END
             else:
                 update.message.reply_text("El usuario o la contraseña son incorrectos, vuelve a intentarlo de nuevo /admin")

@@ -2,10 +2,11 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import ChatAction
 class Tip:
     def help(update, context):
-        update.message.reply_text("Tienes a tu disposición los siguientes comandos:\n " + 
-        "/suggest: Este comando te servirá para poder realizar una sugerencia/reporte anónimamente.\n " + 
+        update.message.reply_text("Tienes a tu disposición los siguientes comandos:\n--------------------------------------------\n" + 
+        "/suggest: Este comando te servirá para poder realizar una sugerencia/reporte anónimamente.\n" + 
         "/tip: ¿Necesitas un consejo? Adelante.\n"+
-        "/protocolo: ¿Estás viviendo una situación de acoso por parte de algún miembro de la universidad? ")
+        "/protocolo: ¿Estás viviendo una situación de acoso por parte de algún miembro de la universidad?\n"+
+        "/admin: Funciones de administrador")
     def protocolo(update, context):
         button1 = InlineKeyboardButton("Enlace al protocolo de acoso de la US", url="https://igualdad.us.es/?page_id=844")
         button2 = InlineKeyboardButton("Descargar pdf del protocolo de la US", callback_data='pdfprot')
@@ -22,7 +23,7 @@ class Tip:
         chat.send_document(document=open(file, 'rb'))
 
     def tip(update, context):
-        update.message.reply_text("Has entrado en los consejos. ¿En qué podemos ayudarte?\n"+
+        update.message.reply_text("Has entrado en los consejos. ¿En qué podemos ayudarte?\n--------------------------------------------\n"+
         "/etsii: Consejos sobre la escuela.\n" + 
         "/us: Consejos sobre el campus.")
 
