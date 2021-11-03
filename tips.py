@@ -19,7 +19,7 @@ class Tip:
         chat = query.message.chat
         chat.send_action(action=ChatAction.UPLOAD_DOCUMENT, timeout=None)
         file = './US-Protocolo-Acoso_Acuerdo-9.1-CG_2018-06-19.pdf'
-        chat.send_document(file, filename=file)
+        chat.send_document(document=open(file, 'rb'))
 
     def tip(update, context):
         update.message.reply_text("Has entrado en los consejos. ¿En qué podemos ayudarte?\n"+
